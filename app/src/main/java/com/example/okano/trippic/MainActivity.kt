@@ -15,6 +15,7 @@ import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.TextView
 import com.example.okano.trippic.DB.DBManager
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,11 +52,12 @@ class MainActivity : AppCompatActivity() {
 
         val insertValue = ContentValues()
         insertValue.put("name",eventname)
+        insertValue.put("startTime",getNowTime() )
         db!!.insert("Trip",eventname, insertValue)
-        val arr: Array<String> = arrayOf("name")
+        val arr: Array<String> = arrayOf("name", "startTime")
         val c = db!!.query("Trip",arr,null,null,null, null ,null)
         if(c.moveToNext()){
-            
+
         }
     }
 
@@ -69,6 +71,17 @@ class MainActivity : AppCompatActivity() {
 
     fun getLocation(){
 
+    }
+
+    fun getNowTime(): String {
+        var calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR).toString()
+        val month = calendar.get(Calendar.MONTH).toString()
+        val day = calendar.get(Calendar.DAY_OF_MONTH).toString()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY).toString()
+        val minute = calendar.get(Calendar.MINUTE).toString()
+        val second = calendar.get(Calendar.SECOND).toString()
+        return year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second
     }
 
 }
