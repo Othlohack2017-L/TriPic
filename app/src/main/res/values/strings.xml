@@ -4,4 +4,5 @@
     <string name="blank_text" />
     <string name="button_text" />
     <string name="hint_text">テキストを入力してください</string>
+    <string name="event_text" />
 </resources>
