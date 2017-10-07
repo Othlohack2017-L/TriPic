@@ -9,6 +9,6 @@ class Trip {
     var category : String? = null
     var latitude : Double? = null
     var longitude : Double? = null
-    var StartTime : String? = null
-    var EndTime : String? = null
+    var startTime : String? = null
+    var endTime : String? = null
 }
