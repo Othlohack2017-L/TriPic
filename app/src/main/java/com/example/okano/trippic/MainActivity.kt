@@ -1,5 +1,6 @@
 package com.example.okano.trippic
 
+
 import android.app.Dialog
 import android.app.PendingIntent.getActivity
 import android.content.DialogInterface
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startLog(view: View){
+
         AlertDialog.Builder(this)
                 .setTitle("Trip name")
                 .setMessage("旅行の名前を入力してください")
