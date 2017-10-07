@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/TripPic.iml" filepath="$PROJECT_DIR$/TripPic.iml" />
       <module fileurl="file://C:\Users\umada\Documents\AndroidStudioProjects\othlohack\TripPic.iml" filepath="C:\Users\umada\Documents\AndroidStudioProjects\othlohack\TripPic.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/othlohack.iml" filepath="$PROJECT_DIR$/othlohack.iml" />
+      <module fileurl="file://C:\Users\okano\Documents\TripPic\othlohack.iml" filepath="C:\Users\okano\Documents\TripPic\othlohack.iml" />
     </modules>
   </component>
 </project>
