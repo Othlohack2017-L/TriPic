@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val helper = DBManager(this)
+        val helper = DBManager(this).getInstance(this)
         db = helper.writableDatabase
         //gpscoordination = GPSCoordination()
 
@@ -64,14 +64,27 @@ class MainActivity : AppCompatActivity() {
                 .show()
 
         val insertValue = ContentValues()
-        insertValue.put("name",eventname)
+        insertValue.put("name","test")
         insertValue.put("startTime",getNowTime() )
+        insertValue.put("latitude",2.5)
+        insertValue.put("longitude",2.5)
         db!!.insert("Trip",eventname, insertValue)
-        val arr: Array<String> = arrayOf("name", "startTime")
+
+        var i = 0
+        while(2 > i){
+            i++
+            val test = ContentValues()
+            test.put("latitude", i.toFloat())
+            test.put("longitude", i.toFloat())
+            test.put("pic", "")
+            test.put("tripId",1)
+            db!!.insert("Point",null,test)
+        }
+        /*val arr: Array<String> = arrayOf("name", "startTime")
         val c = db!!.query("Trip",arr,null,null,null, null ,null)
         if(c.moveToNext()){
 
-        }
+        }*/
     }
 
     fun endLog(view: View){
