@@ -1,4 +1,4 @@
-package com.example.okano.trippic
+﻿package com.example.okano.trippic
 
 
 import android.Manifest
@@ -26,6 +26,7 @@ import com.example.okano.trippic.DB.DBManager
 import java.text.SimpleDateFormat
 import com.example.okano.trippic.gpsCoordination.GPSCoordination
 import java.util.*
+import android.widget.LinearLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,13 +52,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startLog(view: View){
-
+        val layout = LinearLayout(this)
+        val eventBox = EditText(this)
+        eventBox.setHint("イベント名")
+        layout.addView(eventBox)
         AlertDialog.Builder(this)
                 .setTitle("Trip name")
                 .setMessage("旅行の名前を入力してください")
+                .setView(layout)
                 .setPositiveButton("OK", object :DialogInterface.OnClickListener{
                     override fun onClick(dialog: DialogInterface, which: Int){
-
+                        eventname = eventBox.text.toString()
                     }
                 })
                 .setNegativeButton("CANCEL", null)
