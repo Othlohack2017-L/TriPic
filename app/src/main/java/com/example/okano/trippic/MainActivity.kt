@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.view.View
 
 class MainActivity : AppCompatActivity() {
-    var eventname;
+
+    var eventname = "event"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startLog(view: View){
-
+        
     }
 
     fun endLog(view: View){
