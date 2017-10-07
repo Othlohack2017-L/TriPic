@@ -1,57 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.okano.trippic.MainActivity">
+    tools:context="com.example.okano.trippic.MainActivity"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="57dp">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="changeActivity"
+        android:text="open map" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="launchCamera"
+        android:text="start camera" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startLog"
+        android:text="start log" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="endLog"
+        android:text="end log" />
+
+
+    <EditText
+        android:id="@+id/event_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="16dp"
+        android:hint="イベント名"
+        android:inputType="text"
+        android:text="@string/event_text" />
+
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ivCamera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="57dp">
+        android:layout_gravity="center"
+        android:scaleType="center"
+        />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="changeActivity"
-            android:text="open map" />
+</LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="launchCamera"
-            android:text="start camera" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="startLog"
-            android:text="start log" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="endLog"
-            android:text="end log" />
-
-
-        <EditText
-            android:id="@+id/event_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="16dp"
-            android:hint="イベント名"
-            android:inputType="text"
-            android:text="@string/event_text" />
-
-
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
