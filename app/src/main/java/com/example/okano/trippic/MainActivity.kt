@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     var db : SQLiteDatabase? = null
     var text : TextView? = null
     var _imageUri: Uri? = null
+    var id : Int? = null
     //var gpscoordination:GPSCoordination? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,20 +70,20 @@ class MainActivity : AppCompatActivity() {
                 .show()
 
         val insertValue = ContentValues()
-        insertValue.put("name","test")
+        insertValue.put("name",eventname)
         insertValue.put("startTime",getNowTime() )
-        insertValue.put("latitude",2.5)
-        insertValue.put("longitude",2.5)
-        db!!.insert("Trip",eventname, insertValue)
+        insertValue.put("latitude",80.0)
+        insertValue.put("longitude",80.0)
+        id = db!!.insert("Trip",eventname, insertValue).toInt()
 
         var i = 0
         while(2 > i){
             i++
             val test = ContentValues()
-            test.put("latitude", i.toFloat())
-            test.put("longitude", i.toFloat())
+            test.put("latitude", (i*2).toFloat())
+            test.put("longitude", (i*2).toFloat())
             test.put("pic", "")
-            test.put("tripId",1)
+            test.put("tripId",id)
             db!!.insert("Point",null,test)
         }
         /*val arr: Array<String> = arrayOf("name", "startTime")
@@ -92,8 +93,13 @@ class MainActivity : AppCompatActivity() {
         }*/
     }
 
-    fun endLog(view: View){
-
+    fun endLog(view: View) {
+        if (id != null) {
+            val updateValue = ContentValues()
+            updateValue.put("endTime", getNowTime())
+            db!!.update("Trip", updateValue, "id=?", arrayOf(id.toString()))
+            id = null
+        }
     }
 
     fun launchCamera(view: View){

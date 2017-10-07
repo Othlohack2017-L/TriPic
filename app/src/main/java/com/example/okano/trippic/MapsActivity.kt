@@ -43,14 +43,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        var c = db!!.query("Trip",arrayOf("id","name","latitude","longitude"),null, null,null, null ,null)
+        if(c.moveToFirst()) {
+            do {
+                var mark = LatLng(c.getDouble(2), c.getDouble(3))
+                mMap.addMarker(MarkerOptions().position(mark).title(c.getString(1)))
+            }while (c.moveToNext())
+        }
         mMap.setOnMarkerClickListener(this)
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        var c = db!!.query("Trip",arrayOf("Id"),"name = 'test'", null,null, null ,null)
+        var c = db!!.query("Trip",arrayOf("id"),"name = 'test'", null,null, null ,null)
         val arr2: Array<String> = arrayOf("latitude", "longitude","pic")
         val where:Array<String> = arrayOf("")
         if(c.moveToNext()) {
