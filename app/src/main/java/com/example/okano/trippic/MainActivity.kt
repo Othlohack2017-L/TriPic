@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 
 class MainActivity : AppCompatActivity() {
+    var eventname;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,15 +18,15 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun launchCamera(view: View){
-
-    }
-
     fun startLog(view: View){
 
     }
 
     fun endLog(view: View){
+
+    }
+
+    fun launchCamera(view: View){
 
     }
 
