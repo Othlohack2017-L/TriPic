@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.okano.trippic.MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -37,19 +37,6 @@
             android:layout_height="wrap_content"
             android:onClick="endLog"
             android:text="end log" />
-
-        <EditText
-            android:id="@+id/event_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="16dp"
-            android:hint="イベント名"
-            android:inputType="text"
-            android:text="@string/event_text" />
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

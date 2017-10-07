@@ -10,7 +10,7 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
-import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.LinearLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,12 +27,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startLog(view: View){
+        val layout = LinearLayout(this)
+        val eventBox = EditText(this)
+        eventBox.setHint("イベント名")
+        layout.addView(eventBox)
         AlertDialog.Builder(this)
                 .setTitle("Trip name")
                 .setMessage("旅行の名前を入力してください")
+                .setView(layout)
                 .setPositiveButton("OK", object :DialogInterface.OnClickListener{
                     override fun onClick(dialog: DialogInterface, which: Int){
-
+                        eventname = eventBox.text.toString()
                     }
                 })
                 .setNegativeButton("CANCEL", null)
