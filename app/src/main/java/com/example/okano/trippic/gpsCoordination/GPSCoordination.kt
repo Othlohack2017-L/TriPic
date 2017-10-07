@@ -13,6 +13,11 @@ import android.util.Log
 class GPSCoordination : LocationListener{
     private val locationManager : LocationManager? = null
 
+    constructor(){
+        Log.d("debug","locationStart()")
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,50f,this)
+    }
+
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -26,8 +31,8 @@ class GPSCoordination : LocationListener{
     }
 
     override fun onLocationChanged(location: Location?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        Log.d("myTag",""+location?.longitude+":"+location?.latitude)
+        //To change body of created functions use File | Settings | File Templates.
+        Log.d("mytag",""+location?.longitude+":"+location?.latitude)
     }
 
 }

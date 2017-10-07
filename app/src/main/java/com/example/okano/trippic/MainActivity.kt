@@ -10,12 +10,14 @@ import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.TextView
 import com.example.okano.trippic.DB.DBManager
+import com.example.okano.trippic.gpsCoordination.GPSCoordination
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     var eventname = "event"
     var db : SQLiteDatabase? = null
     var text : TextView? = null
+    var gpscoordination:GPSCoordination? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val helper = DBManager(this)
         db = helper.writableDatabase
-
+        //gpscoordination = GPSCoordination()
 
     }
 
