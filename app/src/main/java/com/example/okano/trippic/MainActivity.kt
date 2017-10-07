@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -23,6 +24,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.okano.trippic.DB.DBManager
 import java.text.SimpleDateFormat
+import com.example.okano.trippic.gpsCoordination.GPSCoordination
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     var db : SQLiteDatabase? = null
     var text : TextView? = null
     var _imageUri: Uri? = null
+    //var gpscoordination:GPSCoordination? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val helper = DBManager(this)
         db = helper.writableDatabase
-
+        //gpscoordination = GPSCoordination()
 
     }
 
