@@ -38,8 +38,12 @@ class MainActivity : AppCompatActivity(),LocationListener {
     var db : SQLiteDatabase? = null
     var text : TextView? = null
     var _imageUri: Uri? = null
-    var locationManager:LocationManager?=null;
+    var locationManager : LocationManager? = null
     var id : Int? = null
+    var locationRotation : Location? = null
+    var minuteRotation : Double = 0.0
+    var recordFlog : Boolean = false
+    var nearLocation : Location? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +59,8 @@ class MainActivity : AppCompatActivity(),LocationListener {
         else{
             locationStart()
         }
+
+        nearLocation = null
     }
 
     fun locationStart(){
@@ -167,6 +173,19 @@ class MainActivity : AppCompatActivity(),LocationListener {
         return year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second
     }
 
+    fun startRecord(){
+        minuteRotation = 0.0
+        recordFlog = true
+    }
+
+    fun endRecord(){
+        recordFlog = false
+    }
+
+    fun takePicture(): Location? {
+        return nearLocation
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode==1000){
@@ -191,7 +210,14 @@ class MainActivity : AppCompatActivity(),LocationListener {
     }
 
     override fun onLocationChanged(location: Location?) {
-        Log.d("mytag",""+location?.getLatitude()+":"+location?.getLongitude())
+        //if(recordFlog) {
+            if (Calendar.MINUTE - minuteRotation > 1.0) {
+                Log.d("mytag", "" + location?.getLatitude() + ":" + location?.getLongitude())
+                locationRotation = location
+                minuteRotation = Calendar.MINUTE as Double
+            }
+            //nearLocation = location
+        //}
     }
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
