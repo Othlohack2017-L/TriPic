@@ -7,14 +7,20 @@ import android.app.Dialog
 import android.app.PendingIntent.getActivity
 import android.content.DialogInterface
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.sqlite.SQLiteDatabase
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,16 +30,14 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.okano.trippic.DB.DBManager
 import java.text.SimpleDateFormat
-import com.example.okano.trippic.gpsCoordination.GPSCoordination
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(),LocationListener {
     var eventname = "event"
     var db : SQLiteDatabase? = null
     var text : TextView? = null
     var _imageUri: Uri? = null
-    //var gpscoordination:GPSCoordination? = null
+    var locationManager:LocationManager?=null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +45,30 @@ class MainActivity : AppCompatActivity() {
 
         val helper = DBManager(this)
         db = helper.writableDatabase
-        //gpscoordination = GPSCoordination()
 
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=
+                PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),1000)
+        }
+        else{
+            locationStart()
+        }
+    }
+
+    fun locationStart(){
+        locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        val gpsEnable : Boolean = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        if(!gpsEnable){
+            var settingIntent : Intent = Settings.ACTION_LOCATION_SOURCE_SETTINGS as Intent
+            startActivity(settingIntent)
+        }
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),1000)
+            return
+        }
+        locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0f,this)
     }
 
     fun changeActivity(view: View){
@@ -117,6 +143,20 @@ class MainActivity : AppCompatActivity() {
         return year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode==1000){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                locationStart()
+                return
+            }
+            else{
+                var toast : Toast = Toast.makeText(this,"現在位置は使用できません",Toast.LENGTH_SHORT)
+                toast.show()
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {//戻ってきたときの処理　requestodeは識別子C resultCodeは結果を表す
         if (requestCode == 200 && resultCode == Activity.RESULT_OK) {  // （1）
             //Bitmap bitmap =  data.getParcelableExtra("data");  // （2）カメラアプリが撮影した画像を取得カメラアプリの画像は勝手にインテントに入ってる
@@ -126,4 +166,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onLocationChanged(location: Location?) {
+        Log.d("mytag",""+location?.getLatitude()+":"+location?.getLongitude())
+    }
+
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onProviderEnabled(provider: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onProviderDisabled(provider: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
