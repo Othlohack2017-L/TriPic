@@ -1,10 +1,16 @@
 package com.example.okano.trippic
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.media.ImageReader
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import com.example.okano.trippic.DB.DBManager
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,6 +25,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     private lateinit var mMap: GoogleMap
     var db : SQLiteDatabase? = null
+    var trip = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,20 +59,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        var c = db!!.query("Trip",arrayOf("Id"),"name = 'test'", null,null, null ,null)
-        val arr2: Array<String> = arrayOf("latitude", "longitude","pic")
-        val intent = Intent(this, LogsActivity::class.java)
-        intent.putExtra("tripId", c.getInt(0))
-        startActivity(intent)
-        /*val where:Array<String> = arrayOf("")
-        if(c.moveToNext()) {
-            c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
+     /*   if(trip) {
+            var c = db!!.query("Trip", arrayOf("Id"), "name = 'test'", null, null, null, null)
+            val arr2: Array<String> = arrayOf("latitude", "longitude", "pic")
+            /*val where:Array<String> = arrayOf("")
+            if(c.moveToNext()) {
+                c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
+            }
+            while (c.moveToNext()){
+                var a = c.getFloat(0)
+                var b = c.getFloat(1)
+                var d = c.getString(2)
+            }*/
+            trip = false
         }
-        while (c.moveToNext()){
-            var a = c.getFloat(0)
-            var b = c.getFloat(1)
-            var d = c.getString(2)
-        }*/
-        return false
+        else{*/
+            val intent = Intent(this, CaptureActivity::class.java)
+            startActivity(intent)
+    //    }
+        return true
     }
 }
