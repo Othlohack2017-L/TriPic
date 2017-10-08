@@ -152,8 +152,8 @@ class MainActivity : AppCompatActivity(),LocationListener {
         values.put(MediaStore.Images.Media.TITLE, fileName)  // （3）putでデータを格納
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")  // （4）
 
-        val resolver = contentResolver  // （5）
-        _imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)  // （6）新しいデータの格納先を確保しこれが一つ目、それを表すUriオブジェクトを生成してくれる
+       // val resolver = contentResolver  // （5）
+       // _imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)  // （6）新しいデータの格納先を確保しこれが一つ目、それを表すUriオブジェクトを生成してくれる
 
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)  // （7）
    //     intent.putExtra(MediaStore.EXTRA_OUTPUT, MyFileContentProvider)  // （8）
@@ -187,10 +187,10 @@ class MainActivity : AppCompatActivity(),LocationListener {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            val ivCamera = findViewById<ImageView>(R.id.ivCamera)
-            launchCamera(ivCamera)//パーミッションが許可されたときにもう一度onCameraImageClick()を呼び出す
-        }
+        //if (requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //val ivCamera = findViewById<ImageView>(R.id.ivCamera)
+            //launchCamera(ivCamera)//パーミッションが許可されたときにもう一度onCameraImageClick()を呼び出す
+        //}
         if(requestCode==1000){
             if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 locationStart()
@@ -206,7 +206,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {//戻ってきたときの処理　requestodeは識別子C resultCodeは結果を表す Intentに何か問題あり
        // super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 200 && resultCode == Activity.RESULT_OK) {  // （1）
-            val ivCamera = findViewById<ImageView>(R.id.ivCamera)  // その画像をImageViewに適用
+            //val ivCamera = findViewById<ImageView>(R.id.ivCamera)  // その画像をImageViewに適用
             val text=data.data.toString() as String
             Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
         }

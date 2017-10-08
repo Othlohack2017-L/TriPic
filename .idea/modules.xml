@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Othlo.iml" filepath="$PROJECT_DIR$/Othlo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/othlohack.iml" filepath="$PROJECT_DIR$/othlohack.iml" />
+      <module fileurl="file://H:\Othlo\othlohack.iml" filepath="H:\Othlo\othlohack.iml" />
       <module fileurl="file://C:\Users\umada\Documents\AndroidStudioProjects\othlohack\othlohack_trippic.iml" filepath="C:\Users\umada\Documents\AndroidStudioProjects\othlohack\othlohack_trippic.iml" />
     </modules>
   </component>

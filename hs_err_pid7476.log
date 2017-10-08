@@ -1,0 +1,154 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1048576 bytes for AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (memory/allocation.inline.hpp:61), pid=7476, tid=0x0000000000000aa8
+#
+# JRE version:  (8.0_152-b01) (build )
+# Java VM: OpenJDK 64-Bit Server VM (25.152-b01 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000002c73000):  JavaThread "Unknown thread" [_thread_in_vm, id=2728, stack(0x0000000002800000,0x0000000002900000)]
+
+Stack: [0x0000000002800000,0x0000000002900000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+=>0x0000000002c73000 (exited) JavaThread "Unknown thread" [_thread_in_vm, id=2728, stack(0x0000000002800000,0x0000000002900000)]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 18944K, used 327K [0x00000000eb000000, 0x00000000ec500000, 0x0000000100000000)
+  eden space 16384K, 2% used [0x00000000eb000000,0x00000000eb051ec8,0x00000000ec000000)
+  from space 2560K, 0% used [0x00000000ec280000,0x00000000ec280000,0x00000000ec500000)
+  to   space 2560K, 0% used [0x00000000ec000000,0x00000000ec000000,0x00000000ec280000)
+ ParOldGen       total 44032K, used 0K [0x00000000c1000000, 0x00000000c3b00000, 0x00000000eb000000)
+  object space 44032K, 0% used [0x00000000c1000000,0x00000000c1000000,0x00000000c3b00000)
+ Metaspace       used 772K, capacity 4480K, committed 4480K, reserved 1056768K
+  class space    used 73K, capacity 384K, committed 384K, reserved 1048576K
+
+Card table byte_map: [0x0000000012130000,0x0000000012330000] byte_map_base: 0x0000000011b28000
+
+Marking Bits: (ParMarkBitMap*) 0x0000000051fd3950
+ Begin Bits: [0x0000000012880000, 0x0000000013840000)
+ End Bits:   [0x0000000013840000, 0x0000000014800000)
+
+Polling page: 0x00000000027d0000
+
+CodeCache: size=245760Kb used=328Kb max_used=328Kb free=245431Kb
+ bounds [0x0000000002d70000, 0x0000000002fe0000, 0x0000000011d70000]
+ total_blobs=57 nmethods=0 adapters=38
+ compilation: enabled
+
+Compilation events (0 events):
+No events
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.023 loading class java/lang/Short
+Event: 0.023 loading class java/lang/Short done
+Event: 0.023 loading class java/lang/Integer
+Event: 0.023 loading class java/lang/Integer done
+Event: 0.023 loading class java/lang/Long
+Event: 0.023 loading class java/lang/Long done
+Event: 0.024 loading class java/lang/NullPointerException
+Event: 0.024 loading class java/lang/NullPointerException done
+Event: 0.024 loading class java/lang/ArithmeticException
+Event: 0.024 loading class java/lang/ArithmeticException done
+
+
+Dynamic libraries:
+0x00007ff617a60000 - 0x00007ff617a91000 	H:\android-studio\jre\jre\bin\java.exe
+0x00007ffc42a20000 - 0x00007ffc42bf2000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffc42120000 - 0x00007ffc421cc000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffc3f1a0000 - 0x00007ffc3f3bd000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffc401f0000 - 0x00007ffc40292000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffc41ab0000 - 0x00007ffc41b4e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffc40130000 - 0x00007ffc40189000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffc41ff0000 - 0x00007ffc42111000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffc3ffc0000 - 0x00007ffc40125000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffc3ff40000 - 0x00007ffc3ff5e000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffc429e0000 - 0x00007ffc42a14000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffc3f6e0000 - 0x00007ffc3f860000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffc34370000 - 0x00007ffc345ea000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.14393.953_none_42151e83c686086b\COMCTL32.dll
+0x00007ffc42330000 - 0x00007ffc425f8000 	C:\WINDOWS\System32\combase.dll
+0x00007ffc3f430000 - 0x00007ffc3f525000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffc3f3c0000 - 0x00007ffc3f42a000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffc402a0000 - 0x00007ffc402ce000 	C:\WINDOWS\System32\IMM32.DLL
+0x00000000522f0000 - 0x00000000523c2000 	H:\android-studio\jre\jre\bin\msvcr100.dll
+0x0000000051810000 - 0x000000005204e000 	H:\android-studio\jre\jre\bin\server\jvm.dll
+0x00007ffc42600000 - 0x00007ffc42608000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffc3d3f0000 - 0x00007ffc3d413000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffc3b750000 - 0x00007ffc3b75a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffc381a0000 - 0x00007ffc381a9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00000000027a0000 - 0x00000000027cb000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ffc41f80000 - 0x00007ffc41fea000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffc3ff60000 - 0x00007ffc3ffa2000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x00007ffc38100000 - 0x00007ffc3810f000 	H:\android-studio\jre\jre\bin\verify.dll
+0x00007ffc37d80000 - 0x00007ffc37da9000 	H:\android-studio\jre\jre\bin\java.dll
+0x00007ffc2c090000 - 0x00007ffc2c0a6000 	H:\android-studio\jre\jre\bin\zip.dll
+
+VM Arguments:
+java_command: org.jetbrains.kotlin.cli.jvm.K2JVMCompiler -Xadd-compiler-builtins -Xbuild-file=C:\Users\takato\AppData\Local\Temp\kjps5039501086451170566app_debug.script.xml -classpath C:\Users\takato\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\d89257abc3e0433bd420bdae1c255d9c\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\20885183f9c9fcb72f528ba4cc233dd8\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\play-services-maps-11.4.2.aar\76fa027da2255501975643b419a2c444\jars\classes.jar;C:\Users\takato\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jre7\1.1.51\8b5933578dc55f32cfc1a25f1db6371e4161fb8f\kotlin-stdlib-jre7-1.1.51.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\0a46629ea5196103928113da73745a2f\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\d6b9b6e5b2f44136f137062308735a6b\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\play-services-base-11.4.2.aar\b7c0e86dd14285225240e4d1c9dba268\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\play-services-tasks-11.4.2.aar\21c64ff0bdb601a445c8efefe530d77b\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\play-services-basement-11.4.2.aar\213f4e1c323a6faf1af620ff917b6683\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\35e73a274e8ed75b5994629827a0eab7\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\support-fragment-26.1.0.aar\cadc62cbc731e349578c574bd0f5080c\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\support-core-ui-26.1.0.aar\3a578d7f13b2db2f7f480901a7e7bce5\jars\classes.jar;C:\Users\takato\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\72a7630f75f038330bf6dfff93499ff4\jars\classes.jar;C:\Users\takato\.gradle\caches\transform
+java_class_path (initial): C:\Users\takato\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-compiler-embeddable\1.1.51\e87f62328a705dc5c5b857f1aa50d1732c8bc3d6\kotlin-compiler-embeddable-1.1.51.jar;H:\android-studio\jre\lib\tools.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\GtkSharp\2.12\bin;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;H:\git\Git\cmd;C:\Microsoft VS Code\bin;C:\Users\takato\AppData\Local\Microsoft\WindowsApps;C:\Users\takato\AppData\Local\atom\bin
+USERNAME=takato
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 78 Stepping 3, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 14393 (10.0.14393.1198)
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 78 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+Memory: 4k page, physical 4124476k(754608k free), swap 6152288k(6052k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.152-b01) for windows-amd64 JRE (1.8.0_152-release-915-b01), built by "builder" with MS VC++ 10.0 (VS2010)
+
+time: Sun Oct 08 14:15:18 2017
+elapsed time: 0 seconds (0d 0h 0m 0s)
+
