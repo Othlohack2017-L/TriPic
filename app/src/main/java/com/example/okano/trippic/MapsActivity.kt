@@ -28,6 +28,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     private lateinit var mMap: GoogleMap
 //    var db : SQLiteDatabase? = null
     var trip = true
+    var mMarker: Marker? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,13 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        var route: List<LatLng> = listOf(LatLng(28.0, 120.0), LatLng(15.0, 100.0),
-                                            LatLng(10.0, 98.0), LatLng(40.0, 130.0))
-
-        var title: List<String> = listOf("a", "b", "c", "d")
-        for (i in 0..3){
-            mMap.addMarker(MarkerOptions().position(route[i]).title(title[i]))
-        }
+        mMarker = mMap.addMarker(MarkerOptions().position(LatLng(35.6, 139.76)).title("Kyoto Trip"))
         // Add a marker in Sydney and move the camera
 //        var c = db!!.query("Trip",arrayOf("id","name","latitude","longitude"),null, null,null, null ,null)
 //        if(c.moveToFirst()) {
@@ -69,7 +64,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 //            }while (c.moveToNext())
 //       }
         mMap.setOnMarkerClickListener(this)
-        drawRoute(route)
         /*
         val mKansai = LatLng(34.435912, 135.243496)
         val mHnl = LatLng(21.318701, -157.921997)
@@ -87,6 +81,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 //        if(c.moveToNext()) {
 //            c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
             if (trip) {
+                mMarker?.remove()
+                var route: List<LatLng> =
+                        listOf(LatLng(35.2, 139.6), LatLng(35.1, 139.5), LatLng(35.1, 139.2), LatLng(35.0, 138.8),
+                                LatLng(35.0, 138.5), LatLng(35.0, 138.2), LatLng(35.0, 137.6), LatLng(35.0, 137.3),
+                                LatLng(35.0, 137.0), LatLng(35.0, 136.7), LatLng(35.0, 136.3), LatLng(35.1, 136.1),
+                                LatLng(35.1, 135.8), LatLng(35.1, 135.7))
+                var title: List<String> = listOf("a", "b", "c", "d")
+                drawRoute(route)
+                mMap.addMarker(MarkerOptions().position(route[2]).title(title[0]))
+                mMap.addMarker(MarkerOptions().position(route[5]).title(title[1]))
+                mMap.addMarker(MarkerOptions().position(route[7]).title(title[2]))
+                mMap.addMarker(MarkerOptions().position(route[13]).title(title[3]))
 //                var c = db!!.query("Trip", arrayOf("Id"), "name = 'test'", null, null, null, null)
                 val arr2: Array<String> = arrayOf("latitude", "longitude", "pic")
                 /*val where:Array<String> = arrayOf("")
