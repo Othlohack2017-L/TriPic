@@ -1,4 +1,4 @@
-package com.example.okano.trippic
+﻿package com.example.okano.trippic
 
 
 import android.Manifest
@@ -31,6 +31,7 @@ import android.widget.Toast
 import com.example.okano.trippic.DB.DBManager
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.LinearLayout
 
 class MainActivity : AppCompatActivity(),LocationListener {
     var eventname = "event"
@@ -38,12 +39,13 @@ class MainActivity : AppCompatActivity(),LocationListener {
     var text : TextView? = null
     var _imageUri: Uri? = null
     var locationManager:LocationManager?=null;
+    var id : Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val helper = DBManager(this)
+        val helper = DBManager(this).getInstance(this)
         db = helper.writableDatabase
 
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!=
@@ -77,13 +79,17 @@ class MainActivity : AppCompatActivity(),LocationListener {
     }
 
     fun startLog(view: View){
-
+        val layout = LinearLayout(this)
+        val eventBox = EditText(this)
+        eventBox.setHint("イベント名")
+        layout.addView(eventBox)
         AlertDialog.Builder(this)
                 .setTitle("Trip name")
                 .setMessage("旅行の名前を入力してください")
+                .setView(layout)
                 .setPositiveButton("OK", object :DialogInterface.OnClickListener{
                     override fun onClick(dialog: DialogInterface, which: Int){
-
+                        eventname = eventBox.text.toString()
                     }
                 })
                 .setNegativeButton("CANCEL", null)
@@ -92,16 +98,34 @@ class MainActivity : AppCompatActivity(),LocationListener {
         val insertValue = ContentValues()
         insertValue.put("name",eventname)
         insertValue.put("startTime",getNowTime() )
-        db!!.insert("Trip",eventname, insertValue)
-        val arr: Array<String> = arrayOf("name", "startTime")
+        insertValue.put("latitude",80.0)
+        insertValue.put("longitude",80.0)
+        id = db!!.insert("Trip",eventname, insertValue).toInt()
+
+        var i = 0
+        while(2 > i){
+            i++
+            val test = ContentValues()
+            test.put("latitude", (i*2).toFloat())
+            test.put("longitude", (i*2).toFloat())
+            test.put("pic", "")
+            test.put("tripId",id)
+            db!!.insert("Point",null,test)
+        }
+        /*val arr: Array<String> = arrayOf("name", "startTime")
         val c = db!!.query("Trip",arr,null,null,null, null ,null)
         if(c.moveToNext()){
 
-        }
+        }*/
     }
 
-    fun endLog(view: View){
-
+    fun endLog(view: View) {
+        if (id != null) {
+            val updateValue = ContentValues()
+            updateValue.put("endTime", getNowTime())
+            db!!.update("Trip", updateValue, "id=?", arrayOf(id.toString()))
+            id = null
+        }
     }
 
     fun launchCamera(view: View){
