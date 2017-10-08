@@ -41,12 +41,9 @@
             android:label="@string/title_activity_maps"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".LogsActivity"
-            android:label="@string/title_activity_logs">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.okano.trippic.MapsActivity" />
-        </activity>
+            android:name=".CaptureActivity"
+            android:label="Capture"
+            android:parentActivityName=".MapsActivity" />
     </application>
 
 </manifest>
