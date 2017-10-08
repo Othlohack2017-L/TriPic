@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
 
         }*/
 
-
+        startRecord()
     }
 
     fun endLog(view: View) {
@@ -133,6 +133,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
             db!!.update("Trip", updateValue, "id=?", arrayOf(id.toString()))
             id = null
         }
+        endRecord()
     }
 
     fun launchCamera(view: View){
@@ -172,7 +173,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
     }
 
     fun startRecord(){
-        minuteRotation = 0.0
+        minuteRotation = Calendar.MINUTE.toDouble() - 1.0
         recordFlog = true
     }
 

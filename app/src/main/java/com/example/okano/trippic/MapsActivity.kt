@@ -2,6 +2,7 @@ package com.example.okano.trippic
 
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import android.location.Location
+import com.google.android.gms.maps.model.PolylineOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -30,6 +33,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         val helper = DBManager(this).getInstance(this)
         db = helper.writableDatabase
+
+        var location1 : Locatio
+        writeLine()
     }
 
     /**
@@ -72,4 +78,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }*/
         return false
     }
+
+    fun writeLine(locationStart : Location?,locationEnd : Location?) {
+        if(locationStart==null||locationEnd==null){
+            return
+        }
+        val start = LatLng(locationStart.latitude, locationStart.longitude)
+        val end = LatLng(locationEnd.latitude, locationEnd.longitude)
+        val straight : PolylineOptions =  PolylineOptions().add(start, end).geodesic(false).color(Color.RED).width(3f)
+        mMap.addPolyline(straight)
+    }
+
 }
