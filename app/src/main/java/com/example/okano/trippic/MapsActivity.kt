@@ -34,8 +34,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val helper = DBManager(this).getInstance(this)
         db = helper.writableDatabase
 
-        var location1 : Locatio
-        writeLine()
+        /*var location1 : Locatio
+        writeLine()*/
     }
 
     /**
