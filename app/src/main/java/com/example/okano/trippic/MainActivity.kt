@@ -90,6 +90,8 @@ class MainActivity : AppCompatActivity() {
         if(c.moveToNext()){
 
         }*/
+
+
     }
 
     fun endLog(view: View){
