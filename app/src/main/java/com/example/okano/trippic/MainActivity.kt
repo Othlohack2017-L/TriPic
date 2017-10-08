@@ -41,10 +41,10 @@ class MainActivity : AppCompatActivity(),LocationListener {
     var id : Int? = null
     var locationRotation : Location? = null
     var minuteRotation : Double = 0.0
-    var recordFlog : Boolean = false
+    var recordFlag : Boolean = false
     var nearLocation : Location? = null
     var startFlag : Boolean = false
-
+    var gpsFrag : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -175,12 +175,12 @@ class MainActivity : AppCompatActivity(),LocationListener {
     }
 
     fun startRecord(){
-        minuteRotation = Calendar.MINUTE.toDouble() - 1.0
-        recordFlog = true
+        minuteRotation = Calendar.SECOND.toDouble() - 1.0
+        recordFlag = true
     }
 
     fun endRecord(){
-        recordFlog = false
+        recordFlag = false
     }
 
     fun takePicture(): Location? {
@@ -235,8 +235,8 @@ class MainActivity : AppCompatActivity(),LocationListener {
     */
 
     override fun onLocationChanged(location: Location?) {
-        //if(recordFlog) {
-            if (Calendar.MINUTE - minuteRotation > 1.0) {
+        if(recordFlag) {
+            //if (Calendar.SECOND.toDouble() - minuteRotation > 10.0) {
                 Log.d("mytag", "" + location?.getLatitude() + ":" + location?.getLongitude())
                 locationRotation = location
                 minuteRotation = Calendar.MINUTE.toDouble()
@@ -253,10 +253,17 @@ class MainActivity : AppCompatActivity(),LocationListener {
                     insertValue.put("tripId", id)
                     insertValue.put("pic", "")
                     db!!.insert("Point", null, insertValue)
-                }
+              //  }
             }
-            //nearLocation = location
-        //}
+            nearLocation = location
+            var a = nearLocation!!.latitude
+            Log.d("mytag",""+nearLocation)
+        }
+        if(location != null&&gpsFrag==false){
+            gpsFrag = true
+            var toast : Toast = Toast.makeText(this,"現在位置使用可能",Toast.LENGTH_SHORT)
+            toast.show()
+        }
     }
 
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
