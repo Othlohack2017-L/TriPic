@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.okano.trippic">
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -38,8 +39,14 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:parentActivityName=".MainActivity"
-            ></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LogsActivity"
+            android:label="@string/title_activity_logs">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.okano.trippic.MapsActivity" />
+        </activity>
     </application>
 
 </manifest>

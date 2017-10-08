@@ -123,6 +123,8 @@ class MainActivity : AppCompatActivity(),LocationListener {
         if(c.moveToNext()){
 
         }*/
+
+
     }
 
     fun endLog(view: View) {
