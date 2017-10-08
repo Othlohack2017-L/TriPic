@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
     var minuteRotation : Double = 0.0
     var recordFlog : Boolean = false
     var nearLocation : Location? = null
+    var startFlag : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +67,10 @@ class MainActivity : AppCompatActivity(),LocationListener {
         locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         val gpsEnable : Boolean = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        if(!gpsEnable){
+        /*if(!gpsEnable){
             var settingIntent : Intent = Settings.ACTION_LOCATION_SOURCE_SETTINGS as Intent
             startActivity(settingIntent)
-        }
+        }*/
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),1000)
@@ -84,6 +85,8 @@ class MainActivity : AppCompatActivity(),LocationListener {
     }
 
     fun startLog(view: View){
+        startRecord()
+        startFlag = false
         val layout = LinearLayout(this)
         val eventBox = EditText(this)
         eventBox.setHint("イベント名")
@@ -95,19 +98,16 @@ class MainActivity : AppCompatActivity(),LocationListener {
                 .setPositiveButton("OK", object :DialogInterface.OnClickListener{
                     override fun onClick(dialog: DialogInterface, which: Int){
                         eventname = eventBox.text.toString()
+                        val insertValue = ContentValues()
+                        insertValue.put("name",eventname)
+                        insertValue.put("startTime",getNowTime() )
+                        id = db!!.insert("Trip",eventname, insertValue).toInt()
                     }
                 })
                 .setNegativeButton("CANCEL", null)
                 .show()
 
-        val insertValue = ContentValues()
-        insertValue.put("name",eventname)
-        insertValue.put("startTime",getNowTime() )
-        insertValue.put("latitude",80.0)
-        insertValue.put("longitude",80.0)
-        id = db!!.insert("Trip",eventname, insertValue).toInt()
-
-        var i = 0
+        /*var i = 0
         while(2 > i){
             i++
             val test = ContentValues()
@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
             test.put("pic", "")
             test.put("tripId",id)
             db!!.insert("Point",null,test)
-        }
+        }*/
         /*val arr: Array<String> = arrayOf("name", "startTime")
         val c = db!!.query("Trip",arr,null,null,null, null ,null)
         if(c.moveToNext()){
@@ -131,9 +131,9 @@ class MainActivity : AppCompatActivity(),LocationListener {
             val updateValue = ContentValues()
             updateValue.put("endTime", getNowTime())
             db!!.update("Trip", updateValue, "id=?", arrayOf(id.toString()))
+            endRecord()
             id = null
         }
-        endRecord()
     }
 
     fun launchCamera(view: View){
@@ -207,7 +207,17 @@ class MainActivity : AppCompatActivity(),LocationListener {
        // super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 200 && resultCode == Activity.RESULT_OK) {  // （1）
             val ivCamera = findViewById<ImageView>(R.id.ivCamera)  // その画像をImageViewに適用
-            val text=data.data.toString() as String
+            val text=data.data.toString()
+
+            if(id != null){
+                val insertValue = ContentValues()
+                insertValue.put("latitude", nearLocation!!.latitude)
+                insertValue.put("longitude", nearLocation!!.longitude)
+                insertValue.put("tripId", id)
+                insertValue.put("pic", text)
+                db!!.insert("Point", null, insertValue)
+            }
+
             Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
         }
     }
@@ -228,6 +238,20 @@ class MainActivity : AppCompatActivity(),LocationListener {
                 Log.d("mytag", "" + location?.getLatitude() + ":" + location?.getLongitude())
                 locationRotation = location
                 minuteRotation = Calendar.MINUTE.toDouble()
+                if(!startFlag){
+                    val updateValue = ContentValues()
+                    updateValue.put("latitude", location!!.latitude)
+                    updateValue.put("longitude", location!!.longitude)
+                    db!!.update("Trip", updateValue, "id="+id.toString(), null)
+                    startFlag = true
+                }else if(id != null){
+                    val insertValue = ContentValues()
+                    insertValue.put("latitude", location!!.latitude)
+                    insertValue.put("longitude", location!!.longitude)
+                    insertValue.put("tripId", id)
+                    insertValue.put("pic", "")
+                    db!!.insert("Point", null, insertValue)
+                }
             }
             //nearLocation = location
         //}
