@@ -66,10 +66,12 @@ class MainActivity : AppCompatActivity(),LocationListener {
         locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         val gpsEnable : Boolean = locationManager!!.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        /*
         if(!gpsEnable){
             var settingIntent : Intent = Settings.ACTION_LOCATION_SOURCE_SETTINGS as Intent
             startActivity(settingIntent)
         }
+        */
         if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),1000)
