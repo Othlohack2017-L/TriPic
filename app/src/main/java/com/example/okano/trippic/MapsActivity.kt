@@ -71,10 +71,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     override fun onMarkerClick(p0: Marker?): Boolean {
         var c = db!!.query("Trip",arrayOf("id"),"name = 'test'", null,null, null ,null)
         val arr2: Array<String> = arrayOf("latitude", "longitude","pic")
-        val intent = Intent(this, LogsActivity::class.java)
-        intent.putExtra("tripId", c.getInt(0))
-        startActivity(intent)
-        /*val where:Array<String> = arrayOf("")
+        val where:Array<String> = arrayOf("")
         if(c.moveToNext()) {
             c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
         if(trip) {
