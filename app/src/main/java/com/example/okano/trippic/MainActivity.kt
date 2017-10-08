@@ -1,6 +1,5 @@
 ﻿package com.example.okano.trippic
 
-
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
@@ -10,6 +9,7 @@ import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Bitmap
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,14 +19,11 @@ import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.okano.trippic.DB.DBManager
 import java.text.SimpleDateFormat
 import com.example.okano.trippic.gpsCoordination.GPSCoordination
 import java.util.*
-import android.widget.LinearLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -116,8 +113,9 @@ class MainActivity : AppCompatActivity() {
         _imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)  // （6）新しいデータの格納先を確保しこれが一つ目、それを表すUriオブジェクトを生成してくれる
 
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)  // （7）
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, _imageUri)  // （8）
+   //     intent.putExtra(MediaStore.EXTRA_OUTPUT, MyFileContentProvider)  // （8）
         startActivityForResult(intent, 200)  // （9）
+//        setResult(Activity.RESULT_OK, intent)
     }
 
     fun getLocation(){
@@ -135,12 +133,20 @@ class MainActivity : AppCompatActivity() {
         return year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {//戻ってきたときの処理　requestodeは識別子C resultCodeは結果を表す
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {//戻ってきたときの処理　requestodeは識別子C resultCodeは結果を表す Intentに何か問題あり
+       // super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 200 && resultCode == Activity.RESULT_OK) {  // （1）
-            //Bitmap bitmap =  data.getParcelableExtra("data");  // （2）カメラアプリが撮影した画像を取得カメラアプリの画像は勝手にインテントに入ってる
-            //val ivCamera = findViewById(R.id.ivCamera) as ImageView  // その画像をImageViewに適用
-            //ivCamera.setImageURI(_imageUri)  // （3）
-            Toast.makeText(this@MainActivity, "+_imageUri+", Toast.LENGTH_SHORT).show()
+            val ivCamera = findViewById<ImageView>(R.id.ivCamera)  // その画像をImageViewに適用
+            val text=data.data.toString() as String
+            Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 2000 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            val ivCamera = findViewById<ImageView>(R.id.ivCamera)
+           launchCamera(ivCamera)//パーミッションが許可されたときにもう一度onCameraImageClick()を呼び出す
         }
     }
 
