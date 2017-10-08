@@ -1,5 +1,6 @@
 package com.example.okano.trippic
 
+import android.app.VoiceInteractor
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+    private var latLngList : List<LatLng>? = null
     private lateinit var mMap: GoogleMap
     var db : SQLiteDatabase? = null
     var trip = true
@@ -41,8 +43,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val helper = DBManager(this).getInstance(this)
         db = helper.writableDatabase
 
-        /*var location1 : Locatio
-        writeLine()*/
     }
 
     /**
@@ -66,6 +66,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             }while (c.moveToNext())
         }
         mMap.setOnMarkerClickListener(this)
+
+        /*
+        val mKansai = LatLng(34.435912, 135.243496)
+        val mHnl = LatLng(21.318701, -157.921997)
+        val mKka = LatLng(45.0,111.0)
+        val mTen = LatLng(10.0,13.0)
+        val list :List<LatLng> = mutableListOf(mKansai,mHnl,mKka,mTen)
+        drawRoute(list)
+        */
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
@@ -95,14 +104,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         return true
     }
 
-    fun writeLine(locationStart : Location?,locationEnd : Location?) {
-        if(locationStart==null||locationEnd==null){
-            return
+    private fun drawRoute(route: List<LatLng>) {
+        val options : PolylineOptions = PolylineOptions()
+        for (latLng in route) {
+            options.add(latLng)
         }
-        val start = LatLng(locationStart.latitude, locationStart.longitude)
-        val end = LatLng(locationEnd.latitude, locationEnd.longitude)
-        val straight : PolylineOptions =  PolylineOptions().add(start, end).geodesic(false).color(Color.RED).width(3f)
-        mMap.addPolyline(straight)
+        options.color(Color.RED)
+        options.width(3f)
+        options.geodesic(false)
+        mMap.addPolyline(options)
     }
 
 }
