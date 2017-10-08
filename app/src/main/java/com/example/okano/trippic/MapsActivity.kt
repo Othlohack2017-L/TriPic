@@ -74,10 +74,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val where:Array<String> = arrayOf("")
         if(c.moveToNext()) {
             c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
-        if(trip) {
-            var c = db!!.query("Trip", arrayOf("Id"), "name = 'test'", null, null, null, null)
-            val arr2: Array<String> = arrayOf("latitude", "longitude", "pic")
-            /*val where:Array<String> = arrayOf("")
+            if (trip) {
+                var c = db!!.query("Trip", arrayOf("Id"), "name = 'test'", null, null, null, null)
+                val arr2: Array<String> = arrayOf("latitude", "longitude", "pic")
+                /*val where:Array<String> = arrayOf("")
             if(c.moveToNext()) {
                 c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
             }
@@ -86,11 +86,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 var b = c.getFloat(1)
                 var d = c.getString(2)
             }*/
-            trip = false
-        }
-        else{
-            val intent = Intent(this, CaptureActivity::class.java)
-            startActivity(intent)
+                trip = false
+            } else {
+                val intent = Intent(this, CaptureActivity::class.java)
+                startActivity(intent)
+            }
         }
         return true
     }
