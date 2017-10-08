@@ -19,17 +19,14 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
 import android.location.Location
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private var latLngList : List<LatLng>? = null
     private lateinit var mMap: GoogleMap
-    var db : SQLiteDatabase? = null
+//    var db : SQLiteDatabase? = null
     var trip = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +38,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
         val helper = DBManager(this).getInstance(this)
-        db = helper.writableDatabase
+//        db = helper.writableDatabase
 
     }
 
@@ -56,17 +53,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        var route: List<LatLng> = listOf(LatLng(28.0, 120.0), LatLng(15.0, 100.0),
+                                            LatLng(10.0, 98.0), LatLng(40.0, 130.0))
 
-        // Add a marker in Sydney and move the camera
-        var c = db!!.query("Trip",arrayOf("id","name","latitude","longitude"),null, null,null, null ,null)
-        if(c.moveToFirst()) {
-            do {
-                var mark = LatLng(c.getDouble(2), c.getDouble(3))
-                mMap.addMarker(MarkerOptions().position(mark).title(c.getString(1)))
-            }while (c.moveToNext())
+        var title: List<String> = listOf("a", "b", "c", "d")
+        for (i in 0..3){
+            mMap.addMarker(MarkerOptions().position(route[i]).title(title[i]))
         }
+        // Add a marker in Sydney and move the camera
+//        var c = db!!.query("Trip",arrayOf("id","name","latitude","longitude"),null, null,null, null ,null)
+//        if(c.moveToFirst()) {
+//        do {
+//                var mark = LatLng(c.getDouble(2), c.getDouble(3))
+//                mMap.addMarker(MarkerOptions().position(mark).title(c.getString(1)))
+//            }while (c.moveToNext())
+//       }
         mMap.setOnMarkerClickListener(this)
-
+        drawRoute(route)
         /*
         val mKansai = LatLng(34.435912, 135.243496)
         val mHnl = LatLng(21.318701, -157.921997)
@@ -78,13 +81,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
     override fun onMarkerClick(p0: Marker?): Boolean {
-        var c = db!!.query("Trip",arrayOf("id"),"name = 'test'", null,null, null ,null)
+//        var c = db!!.query("Trip",arrayOf("id"),"name = 'test'", null,null, null ,null)
         val arr2: Array<String> = arrayOf("latitude", "longitude","pic")
         val where:Array<String> = arrayOf("")
-        if(c.moveToNext()) {
-            c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
+//        if(c.moveToNext()) {
+//            c = db!!.query("Point", arr2, "tripId = 1", null, null, null, "id ASC")
             if (trip) {
-                var c = db!!.query("Trip", arrayOf("Id"), "name = 'test'", null, null, null, null)
+//                var c = db!!.query("Trip", arrayOf("Id"), "name = 'test'", null, null, null, null)
                 val arr2: Array<String> = arrayOf("latitude", "longitude", "pic")
                 /*val where:Array<String> = arrayOf("")
             if(c.moveToNext()) {
@@ -100,7 +103,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
                 val intent = Intent(this, CaptureActivity::class.java)
                 startActivity(intent)
             }
-        }
+//        }
         return true
     }
 
