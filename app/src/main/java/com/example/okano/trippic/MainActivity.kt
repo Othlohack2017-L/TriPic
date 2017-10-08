@@ -160,10 +160,6 @@ class MainActivity : AppCompatActivity(),LocationListener {
         startActivityForResult(intent, 200)  // （9）
     }
 
-    fun getLocation(){
-
-    }
-
     fun getNowTime(): String {
         var calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR).toString()
@@ -216,7 +212,7 @@ class MainActivity : AppCompatActivity(),LocationListener {
             if (Calendar.MINUTE - minuteRotation > 1.0) {
                 Log.d("mytag", "" + location?.getLatitude() + ":" + location?.getLongitude())
                 locationRotation = location
-                minuteRotation = Calendar.MINUTE as Double
+                minuteRotation = Calendar.MINUTE.toDouble()
             }
             //nearLocation = location
         //}
